@@ -35,6 +35,7 @@
     height: 20vh;
     font-size: 10vh;
     text-align: right;
+    text-overflow: clip;
 }
 
 #calculator{

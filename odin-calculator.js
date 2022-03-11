@@ -1,33 +1,36 @@
 function solve(expression){
-    const operators = expression.split(/[\d]+|\s/);
+    var operators = expression.split(/[\d]+/);
+    operators.shift();
+    operators.pop();
     const operands = expression.split(/\D/);
-    var currentTotal = 0;
+    var currentTotal = Number(operands[0]);
     console.log(operators, operands);
-    for(var i = 0; i< operators.length; i++){
-        if(i == 0 && operands.length > 2){
-            currentTotal = Number(operands[i]);
+    for(var i = 0; i < operators.length; i++){
 
-        }else{
-            currentTotal  += operate(operators[i],currentTotal,Number(operands[i]));
+        currentTotal  = operate(operators[i],currentTotal,Number(operands[i+1]));
     
-        }
-        console.log(currentTotal);
+        console.log(currentTotal, i);
     }
+
+    return currentTotal;
     
 }
 
 function operate(operator, number1, number2){
-    if(operator == "+"){
-       return add(number1,number2);
+    if(number1 == ""){
+        return number2;
+    }else if(operator == "+"){
+        console.log('add');
+        return Number(number1) + Number(number2);
     }else if(operator == '-'){
-       return subtract(number1,number2);
+        return Number(number1)-Number(number2);
     }else if(operator == '*'){
-       return multiply(number1, number2);
+        return multiply(Number(number1), Number(number2));
     }else{
-       if(isNaN(divide(number1,number2))){
-           return "AGH?! You can't divide by zero!";
+        if(isNaN(divide(Number(number1),Number(number2)))){
+            return "You can't divide by zero!";
        }else{
-           return divide(number1, number2);
+            return divide(Number(number1), Number(number2));
        }
     }
 };
@@ -45,80 +48,103 @@ function multiply(a,b){
 };
 
 function divide(a, b){
+    if(Number(b) == 0){
+        return "AGH?! You can't divide by zero!";
+    }
+
     return a/b;
 };
 
 var expression = "";
+var prevOperand = "";
+var currOperand = "";
+var prevOperator = "";
 window.addEventListener('click', function(e, expresssion){
     console.log(e.target.textContent);
     var displayContent = document.getElementById("display");
+    var solution = 0;
     if(e.target.id == "key"){
         if(e.target.textContent == 0){
-            displayContent.textContent += "0";
-            expression += "0";
+            currOperand += "0";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 1){
-            displayContent.textContent += "1";
-            expression += "1";
+            currOperand += "1";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 2){
-            displayContent.textContent += "2";
-            expression += "2";
+            currOperand += "2";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 3){
-            displayContent.textContent += "3";
-            expression += "3";
+            currOperand += "3";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 4){
-            displayContent.textContent += "4";
-            expression += "4";
+            currOperand += "4";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 5){
-            displayContent.textContent += "5";
-            expression += "5";
+            currOperand += "5";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 6){
-            displayContent.textContent += "6";
-            expression += "6";
+            currOperand += "6";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 7){
-            displayContent.textContent += "7";
-            expression += "7";
+            currOperand += "7";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 8){
-            displayContent.textContent += "8";
-            expression += "8";
+            currOperand += "8";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == 9){
-            displayContent.textContent += "9";
-            expression += "9";
+            currOperand += "9";
+            displayContent.textContent = currOperand;
 
         }else if(e.target.textContent == "/"){
-            displayContent.textContent += "/";
-            expression += " / ";
+            prevOperand = operate(prevOperator, prevOperand, currOperand);
+            displayContent.textContent = prevOperand;
+            currOperand = "";
+            prevOperator = "/";
 
         }else if(e.target.textContent == "*"){
-            displayContent.textContent += "*";
-            expression += " * ";
+            prevOperand = operate(prevOperator, prevOperand, currOperand);
+            displayContent.textContent = prevOperand;
+            currOperand = "";
+            prevOperator = "*";
 
         }else if(e.target.textContent == "+"){
-            displayContent.textContent += "+";
-            expression += " + ";
+            console.log(prevOperand, currOperand);
+            prevOperand = operate(prevOperator, prevOperand, currOperand);
+            displayContent.textContent = prevOperand;
+            currOperand = "";
+            prevOperator = "+";
 
         }else if(e.target.textContent == "-"){
-            displayContent.textContent += "-";
-            expression += " - ";
+            prevOperand = operate(prevOperator, prevOperand, currOperand);
+            displayContent.textContent = prevOperand;
+            currOperand = "";
+            prevOperator = "-";
 
         }else if(e.target.textContent == "="){
-            solve(displayContent.textContent);
+            prevOperand = operate(prevOperator, prevOperand, currOperand);
+            displayContent.textContent = prevOperand;
+            displayContent.textContent = solution;
+            currOperand = "";
+            prevOperator = "";
 
         }else if(e.target.textContent == "clear"){
             displayContent.textContent = "";
-            expression = "";
+            prevOperand = "";
+            currOperand = "";
+
         }else{
 
         }
     }
-    console.log(displayContent.textContent);
+    console.log("total", prevOperand, displayContent.textContent);
 
 });
