@@ -27,7 +27,7 @@ function operate(operator, number1, number2){
     }else if(operator == '*'){
         return multiply(Number(number1), Number(number2));
     }else if(operator == ""){
-        return number1;
+        return number2;
     }else{
         if(isNaN(divide(Number(number1),Number(number2)))){
             return "You can't divide by zero!";
@@ -146,6 +146,99 @@ window.addEventListener('click', function(e, expresssion){
             displayContent.textContent = displayContent.textContent.slice(0, -1);
             currOperand = displayContent.textContent;
         }
+    }
+
+    if(displayContent.textContent == "You can't divide by zero!"){
+        prevOperand = "";
+        currOperand = "";
+    }
+    console.log("total", prevOperand, displayContent.textContent);
+
+});
+
+window.addEventListener('keydown', function(e, expresssion){
+    console.log(e.code);
+    var displayContent = document.getElementById("display");
+    var solution = 0;
+    if(e.code == "Numpad0"){
+        currOperand += "0";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad1" || e.code == "Digit1"){
+        currOperand += "1";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad2" || e.code == "Digit2"){
+        currOperand += "2";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad3"){
+        currOperand += "3";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad4"){
+        currOperand += "4";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad5"){
+        currOperand += "5";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad6"){
+        currOperand += "6";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad7"){
+        currOperand += "7";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad8"){
+        currOperand += "8";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "Numpad9"){
+        currOperand += "9";
+        displayContent.textContent = currOperand;
+
+    }else if(e.code == "NumpadDivide"){
+        prevOperand = operate(prevOperator, prevOperand, currOperand);
+        displayContent.textContent = prevOperand;
+        currOperand = "";
+        prevOperator = "/";
+
+    }else if(e.code == "NumpadMultiply"){
+        prevOperand = operate(prevOperator, prevOperand, currOperand);
+        displayContent.textContent = prevOperand;
+        currOperand = "";
+        prevOperator = "*";
+
+    }else if(e.code == "NumpadAdd"){
+        console.log(prevOperand, currOperand);
+        prevOperand = operate(prevOperator, prevOperand, currOperand);
+        displayContent.textContent = prevOperand;
+        currOperand = "";
+        prevOperator = "+";
+
+    }else if(e.code == "NumpadSubtract"){
+        prevOperand = operate(prevOperator, prevOperand, currOperand);
+        displayContent.textContent = prevOperand;
+        currOperand = "";
+        prevOperator = "-";
+
+    }else if(e.code == "NumpadEnter"){
+        prevOperand = operate(prevOperator, prevOperand, currOperand);
+        displayContent.textContent = prevOperand;
+        currOperand = "";
+        prevOperator = "";
+
+    }else if(e.code == "Delete"){
+        displayContent.textContent = "";
+        prevOperand = "";
+        currOperand = "";
+
+    }else if(e.code == "Backspace"){
+        displayContent.textContent = displayContent.textContent.slice(0, -1);
+        currOperand = displayContent.textContent;
     }
 
     if(displayContent.textContent == "You can't divide by zero!"){
