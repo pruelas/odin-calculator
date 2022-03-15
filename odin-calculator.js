@@ -26,6 +26,8 @@ function operate(operator, number1, number2){
         return Number(number1)-Number(number2);
     }else if(operator == '*'){
         return multiply(Number(number1), Number(number2));
+    }else if(operator == ""){
+        return number1;
     }else{
         if(isNaN(divide(Number(number1),Number(number2)))){
             return "You can't divide by zero!";
@@ -56,7 +58,7 @@ function divide(a, b){
 };
 
 var expression = "";
-var prevOperand = "";
+var prevOperand = "0";
 var currOperand = "";
 var prevOperator = "";
 window.addEventListener('click', function(e, expresssion){
@@ -132,7 +134,6 @@ window.addEventListener('click', function(e, expresssion){
         }else if(e.target.textContent == "="){
             prevOperand = operate(prevOperator, prevOperand, currOperand);
             displayContent.textContent = prevOperand;
-            displayContent.textContent = solution;
             currOperand = "";
             prevOperator = "";
 
@@ -141,9 +142,15 @@ window.addEventListener('click', function(e, expresssion){
             prevOperand = "";
             currOperand = "";
 
-        }else{
-
+        }else if(e.target.textContent == "del"){
+            displayContent.textContent = displayContent.textContent.slice(0, -1);
+            currOperand = displayContent.textContent;
         }
+    }
+
+    if(displayContent.textContent == "You can't divide by zero!"){
+        prevOperand = "";
+        currOperand = "";
     }
     console.log("total", prevOperand, displayContent.textContent);
 
