@@ -106,6 +106,12 @@ window.addEventListener('click', function(e, expresssion){
             currOperand += "9";
             displayContent.textContent = currOperand;
 
+        }else if(e.target.textContent == "."){
+            if(!currOperand.includes(".")){
+                currOperand += ".";
+                displayContent.textContent = currOperand;
+            }    
+
         }else if(e.target.textContent == "/"){
             prevOperand = operate(prevOperator, prevOperand, currOperand);
             displayContent.textContent = prevOperand;
@@ -199,6 +205,12 @@ window.addEventListener('keydown', function(e, expresssion){
     }else if(e.code == "Numpad9"){
         currOperand += "9";
         displayContent.textContent = currOperand;
+
+    }else if(e.code == "NumpadDecimal"){
+        if(!currOperand.includes(".")){
+            currOperand += ".";
+            displayContent.textContent = currOperand;
+        }
 
     }else if(e.code == "NumpadDivide"){
         prevOperand = operate(prevOperator, prevOperand, currOperand);
