@@ -17,23 +17,43 @@ function solve(expression){
 }
 
 function operate(operator, number1, number2){
+    var solution ="";
     if(number1 == ""){
-        return number2;
+        solution = number2;
     }else if(operator == "+"){
         console.log('add');
-        return Number(number1) + Number(number2);
+        solution = Number(number1) + Number(number2);
     }else if(operator == '-'){
-        return Number(number1)-Number(number2);
+        solution = Number(number1)-Number(number2);
     }else if(operator == '*'){
-        return multiply(Number(number1), Number(number2));
+        solution = multiply(Number(number1), Number(number2));
     }else if(operator == ""){
-        return number2;
+        solution = number2;
     }else{
         if(isNaN(divide(Number(number1),Number(number2)))){
-            return "You can't divide by zero!";
+            solution = "Nope";
        }else{
-            return divide(Number(number1), Number(number2));
+            solution = divide(Number(number1), Number(number2));
        }
+    }
+
+    console.log(solution.toString().length, solution);
+    if(solution.toString().length > 8 && !isNaN(solution)){
+        if(Number.isInteger(solution)){
+            return "NaN";
+        }else{
+            var maxDecimalPlaces = 6;
+            while(solution.toString().length > 8)
+            {
+                solution = Number(solution).toFixed(maxDecimalPlaces);
+                maxDecimalPlaces --;
+                console.log(solution);
+            }    
+            return solution;
+        }
+        
+    }else{
+        return solution;
     }
 };
 
@@ -51,7 +71,7 @@ function multiply(a,b){
 
 function divide(a, b){
     if(Number(b) == 0){
-        return "AGH?! You can't divide by zero!";
+        return "Nope";
     }
 
     return a/b;
@@ -65,52 +85,58 @@ window.addEventListener('click', function(e, expresssion){
     console.log(e.target.textContent);
     var displayContent = document.getElementById("display");
     var solution = 0;
+    console.log(displayContent.textContent.trim(), displayContent.textContent.trim().length);
+
+    
     if(e.target.id == "key"){
-        if(e.target.textContent == 0){
-            currOperand += "0";
-            displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 1){
-            currOperand += "1";
-            displayContent.textContent = currOperand;
+        if(currOperand.length < 8 && !isNaN(e.target.textContent) ){
+            if(e.target.textContent == 0){
+                currOperand += "0";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 2){
-            currOperand += "2";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 1){
+                currOperand += "1";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 3){
-            currOperand += "3";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 2){
+                currOperand += "2";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 4){
-            currOperand += "4";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 3){
+                currOperand += "3";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 5){
-            currOperand += "5";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 4){
+                currOperand += "4";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 6){
-            currOperand += "6";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 5){
+                currOperand += "5";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 7){
-            currOperand += "7";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 6){
+                currOperand += "6";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 8){
-            currOperand += "8";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 7){
+                currOperand += "7";
+                displayContent.textContent = currOperand;
 
-        }else if(e.target.textContent == 9){
-            currOperand += "9";
-            displayContent.textContent = currOperand;
+            }else if(e.target.textContent == 8){
+                currOperand += "8";
+                displayContent.textContent = currOperand;
+
+            }else if(e.target.textContent == 9){
+                currOperand += "9";
+                displayContent.textContent = currOperand;
+            }
 
         }else if(e.target.textContent == "."){
             if(!currOperand.includes(".")){
-                currOperand += ".";
-                displayContent.textContent = currOperand;
-            }    
+            currOperand += ".";
+            displayContent.textContent = currOperand;
+            }
 
         }else if(e.target.textContent == "/"){
             prevOperand = operate(prevOperator, prevOperand, currOperand);
@@ -140,25 +166,34 @@ window.addEventListener('click', function(e, expresssion){
         }else if(e.target.textContent == "="){
             prevOperand = operate(prevOperator, prevOperand, currOperand);
             displayContent.textContent = prevOperand;
-            currOperand = "";
+            currOperand = prevOperand;
             prevOperator = "";
 
         }else if(e.target.textContent == "clear"){
-            displayContent.textContent = "";
+            displayContent.textContent = "0";
             prevOperand = "";
             currOperand = "";
 
         }else if(e.target.textContent == "del"){
-            displayContent.textContent = displayContent.textContent.slice(0, -1);
-            currOperand = displayContent.textContent;
+            if(currOperand != "" && currOperand.length > 1){
+                displayContent.textContent = displayContent.textContent.slice(0, -1);
+                currOperand = displayContent.textContent;
+            }else{
+                displayContent.textContent = "0";
+                currOperand = "";
+            }
         }
+
+
     }
 
-    if(displayContent.textContent == "You can't divide by zero!"){
-        prevOperand = "";
-        currOperand = "";
-    }
-    console.log("total", prevOperand, displayContent.textContent);
+        if(displayContent.textContent == "Error division by zero!" || displayContent.textContent == "NaN"){
+            prevOperand = "";
+            currOperand = "";
+        }
+
+        console.log("total", prevOperand, displayContent.textContent);
+
 
 });
 
