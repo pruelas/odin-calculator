@@ -1,21 +1,3 @@
-function solve(expression){
-    var operators = expression.split(/[\d]+/);
-    operators.shift();
-    operators.pop();
-    const operands = expression.split(/\D/);
-    var currentTotal = Number(operands[0]);
-    console.log(operators, operands);
-    for(var i = 0; i < operators.length; i++){
-
-        currentTotal  = operate(operators[i],currentTotal,Number(operands[i+1]));
-    
-        console.log(currentTotal, i);
-    }
-
-    return currentTotal;
-    
-}
-
 function operate(operator, number1, number2){
     var solution ="";
     if(number1 == ""){
@@ -26,11 +8,11 @@ function operate(operator, number1, number2){
     }else if(operator == '-'){
         solution = Number(number1)-Number(number2);
     }else if(operator == '*'){
-        solution = multiply(Number(number1), Number(number2));
+        solution = Number(number1)*Number(number2);
     }else if(operator == ""){
         solution = number2;
     }else{
-        if(isNaN(divide(Number(number1),Number(number2)))){
+        if(isNaN(Number(number1)/Number(number2))){
             solution = "Nope";
        }else{
             solution = divide(Number(number1), Number(number2));
@@ -55,18 +37,6 @@ function operate(operator, number1, number2){
     }else{
         return solution;
     }
-};
-
-function add(a,b){
-    return a + b;
-};
-
-function subtract(a,b){
-    return a-b;
-};
-
-function multiply(a,b){
-    return a*b;
 };
 
 function divide(a, b){
@@ -187,7 +157,7 @@ window.addEventListener('click', function(e, expresssion){
 
     }
 
-        if(displayContent.textContent == "Error division by zero!" || displayContent.textContent == "NaN"){
+        if(displayContent.textContent == "Nope" || displayContent.textContent == "NaN"){
             prevOperand = "";
             currOperand = "";
         }
@@ -201,45 +171,48 @@ window.addEventListener('keydown', function(e, expresssion){
     console.log(e.code);
     var displayContent = document.getElementById("display");
     var solution = 0;
-    if(e.code == "Numpad0"){
-        currOperand += "0";
-        displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad1" || e.code == "Digit1"){
-        currOperand += "1";
-        displayContent.textContent = currOperand;
+    if(currOperand.length < 8 && !isNaN(e.code.charAt(e.code.length-1))){
+        if(e.code == "Numpad0"){
+            currOperand += "0";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad2" || e.code == "Digit2"){
-        currOperand += "2";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad1" || e.code == "Digit1"){
+            currOperand += "1";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad3"){
-        currOperand += "3";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad2" || e.code == "Digit2"){
+            currOperand += "2";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad4"){
-        currOperand += "4";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad3"){
+            currOperand += "3";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad5"){
-        currOperand += "5";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad4"){
+            currOperand += "4";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad6"){
-        currOperand += "6";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad5"){
+            currOperand += "5";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad7"){
-        currOperand += "7";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad6"){
+            currOperand += "6";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad8"){
-        currOperand += "8";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad7"){
+            currOperand += "7";
+            displayContent.textContent = currOperand;
 
-    }else if(e.code == "Numpad9"){
-        currOperand += "9";
-        displayContent.textContent = currOperand;
+        }else if(e.code == "Numpad8"){
+            currOperand += "8";
+            displayContent.textContent = currOperand;
+
+        }else if(e.code == "Numpad9"){
+            currOperand += "9";
+            displayContent.textContent = currOperand;
+        }
 
     }else if(e.code == "NumpadDecimal"){
         if(!currOperand.includes(".")){
@@ -275,20 +248,25 @@ window.addEventListener('keydown', function(e, expresssion){
     }else if(e.code == "NumpadEnter"){
         prevOperand = operate(prevOperator, prevOperand, currOperand);
         displayContent.textContent = prevOperand;
-        currOperand = "";
+        currOperand = prevOperand;
         prevOperator = "";
 
     }else if(e.code == "Delete"){
-        displayContent.textContent = "";
+        displayContent.textContent = "0";
         prevOperand = "";
         currOperand = "";
 
     }else if(e.code == "Backspace"){
-        displayContent.textContent = displayContent.textContent.slice(0, -1);
-        currOperand = displayContent.textContent;
+        if(currOperand != "" && currOperand.length > 1){
+            displayContent.textContent = displayContent.textContent.slice(0, -1);
+            currOperand = displayContent.textContent;
+        }else{
+            displayContent.textContent = "0";
+            currOperand = "";
+        }
     }
 
-    if(displayContent.textContent == "You can't divide by zero!"){
+    if(displayContent.textContent == "Nope" || displayContent.textContent == "NaN"){
         prevOperand = "";
         currOperand = "";
     }
