@@ -39,14 +39,6 @@ function operate(operator, number1, number2){
     }
 };
 
-function divide(a, b){
-    if(Number(b) == 0){
-        return "Nope";
-    }
-
-    return a/b;
-};
-
 var expression = "";
 var prevOperand = "0";
 var currOperand = "";
@@ -54,10 +46,8 @@ var prevOperator = "";
 window.addEventListener('click', function(e, expresssion){
     console.log(e.target.textContent);
     var displayContent = document.getElementById("display");
-    var solution = 0;
     console.log(displayContent.textContent.trim(), displayContent.textContent.trim().length);
 
-    
     if(e.target.id == "key"){
 
         if(currOperand.length < 8 && !isNaN(e.target.textContent) ){
@@ -153,16 +143,14 @@ window.addEventListener('click', function(e, expresssion){
                 currOperand = "";
             }
         }
-
-
     }
 
-        if(displayContent.textContent == "Nope" || displayContent.textContent == "NaN"){
-            prevOperand = "";
-            currOperand = "";
-        }
+    if(displayContent.textContent == "Nope" || displayContent.textContent == "NaN"){
+        prevOperand = "";
+        currOperand = "";
+    }
 
-        console.log("total", prevOperand, displayContent.textContent);
+    console.log("total", prevOperand, displayContent.textContent);
 
 
 });
@@ -170,7 +158,6 @@ window.addEventListener('click', function(e, expresssion){
 window.addEventListener('keydown', function(e, expresssion){
     console.log(e.code);
     var displayContent = document.getElementById("display");
-    var solution = 0;
 
     if(currOperand.length < 8 && !isNaN(e.code.charAt(e.code.length-1))){
         if(e.code == "Numpad0"){
