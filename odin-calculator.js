@@ -3,7 +3,6 @@ function operate(operator, number1, number2){
     if(number1 == ""){
         solution = number2;
     }else if(operator == "+"){
-        console.log('add');
         solution = Number(number1) + Number(number2);
     }else if(operator == '-'){
         solution = Number(number1)-Number(number2);
@@ -19,7 +18,6 @@ function operate(operator, number1, number2){
        }
     }
 
-    console.log(solution.toString().length, solution);
     if(solution.toString().length > 8 && !isNaN(solution)){
         if(Number.isInteger(solution)){
             return "NaN";
@@ -29,7 +27,6 @@ function operate(operator, number1, number2){
             {
                 solution = Number(solution).toFixed(maxDecimalPlaces);
                 maxDecimalPlaces --;
-                console.log(solution);
             }    
             return solution;
         }
@@ -44,9 +41,7 @@ var prevOperand = "0";
 var currOperand = "";
 var prevOperator = "";
 window.addEventListener('click', function(e, expresssion){
-    console.log(e.target.textContent);
     var displayContent = document.getElementById("display");
-    console.log(displayContent.textContent.trim(), displayContent.textContent.trim().length);
 
     if(e.target.id == "key"){
 
@@ -111,7 +106,6 @@ window.addEventListener('click', function(e, expresssion){
             prevOperator = "*";
 
         }else if(e.target.textContent == "+"){
-            console.log(prevOperand, currOperand);
             prevOperand = operate(prevOperator, prevOperand, currOperand);
             displayContent.textContent = prevOperand;
             currOperand = "";
@@ -131,7 +125,7 @@ window.addEventListener('click', function(e, expresssion){
 
         }else if(e.target.textContent == "clear"){
             displayContent.textContent = "0";
-            prevOperand = "";
+            prevOperand = "0";
             currOperand = "";
 
         }else if(e.target.textContent == "del"){
@@ -149,14 +143,9 @@ window.addEventListener('click', function(e, expresssion){
         prevOperand = "";
         currOperand = "";
     }
-
-    console.log("total", prevOperand, displayContent.textContent);
-
-
 });
 
 window.addEventListener('keydown', function(e, expresssion){
-    console.log(e.code);
     var displayContent = document.getElementById("display");
 
     if(currOperand.length < 8 && !isNaN(e.code.charAt(e.code.length-1))){
@@ -220,7 +209,6 @@ window.addEventListener('keydown', function(e, expresssion){
         prevOperator = "*";
 
     }else if(e.code == "NumpadAdd"){
-        console.log(prevOperand, currOperand);
         prevOperand = operate(prevOperator, prevOperand, currOperand);
         displayContent.textContent = prevOperand;
         currOperand = "";
@@ -257,6 +245,5 @@ window.addEventListener('keydown', function(e, expresssion){
         prevOperand = "";
         currOperand = "";
     }
-    console.log("total", prevOperand, displayContent.textContent);
 
 });
