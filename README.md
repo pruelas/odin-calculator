@@ -1,5 +1,5 @@
 # odin-calculator
-An onlince calculator created by following [The Odin Project](#https://www.theodinproject.com/lessons/foundations-calculator)
+An onlince calculator created by following [The Odin Project - Project:Calculator](#https://www.theodinproject.com/lessons/foundations-calculator)
 
 
 ## Features
@@ -9,3 +9,6 @@ An onlince calculator created by following [The Odin Project](#https://www.theod
 * Has a character limit of 8 for the display screen
 * "clear" key wipes out all existing data
 * "del" key allows the user to undo if a wrong number was clicked
+
+## Demo
+[Live Demo](https://pruelas.github.io/odin-calculator/)
