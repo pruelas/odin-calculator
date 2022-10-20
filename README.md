@@ -1,5 +1,5 @@
 # odin-calculator
-An onlince calculator created by following [The Odin Project - Project:Calculator](#https://www.theodinproject.com/lessons/foundations-calculator)
+An onlince calculator created by following [The Odin Project - Project:Calculator](https://www.theodinproject.com/lessons/foundations-calculator)
 
 
 ## Features
