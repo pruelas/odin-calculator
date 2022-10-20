@@ -1,10 +1,8 @@
 # odin-calculator
-========================
 An onlince calculator created by following [The Odin Project](#https://www.theodinproject.com/lessons/foundations-calculator)
 
 
 ## Features
-========================
 * Addition, subtraction, multiplication and division are supported
 * Calculator evaluates one single pair of numbers at a time
  * Does not follow PEMDAS
